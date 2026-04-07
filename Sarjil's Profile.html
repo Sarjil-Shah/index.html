@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Untitled</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sarjil Shah · Digital Marketing Analyst</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root {
+    --green-dark:  #1A4A1A;
+    --green-mid:   #2D6A2D;
+    --green-light: #4A8C3F;
+    --yellow:      #F5C100;
+    --yellow-light:#FFF3B0;
+    --white:       #FFFFFF;
+    --off-white:   #F7F6F0;
+    --gray:        #6B6B6B;
+    --gray-light:  #E8E6DE;
+    --text-dark:   #111111;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--off-white);
+    color: var(--text-dark);
+    min-height: 100vh;
+  }
+
+  /* ── TOP BAR ── */
+  .topbar {
+    background: var(--green-dark);
+    padding: 0 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo-mark {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .sun-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .brand-text {
+    font-family: 'DM Serif Display', serif;
+    font-size: 15px;
+    color: var(--white);
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+  }
+
+  .brand-text span {
+    display: block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 300;
+    color: var(--yellow);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .nav-pills {
+    display: flex;
+    gap: 4px;
+  }
+
+  .nav-pill {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    background: transparent;
+    color: rgba(255,255,255,0.6);
+    transition: all 0.2s;
+    letter-spacing: 0.03em;
+  }
+
+  .nav-pill:hover { color: var(--white); background: rgba(255,255,255,0.1); }
+  .nav-pill.active { background: var(--yellow); color: var(--green-dark); }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--green-mid);
+    padding: 3rem 2.5rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    right: -60px;
+    top: -60px;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    background: rgba(245,193,0,0.08);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    right: 60px;
+    top: 40px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: rgba(245,193,0,0.05);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: end;
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 10px;
+  }
+
+  .hero-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 44px;
+    color: var(--white);
+    line-height: 1.05;
+    margin-bottom: 10px;
+  }
+
+  .hero-role {
+    font-size: 15px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .hero-tag {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.8);
+    background: rgba(255,255,255,0.07);
+    letter-spacing: 0.03em;
+  }
+
+  .hero-contact {
+    text-align: right;
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    line-height: 2;
+  }
+
+  .hero-contact a {
+    color: var(--yellow);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  /* ── STAT STRIP ── */
+  .stat-strip {
+    background: var(--yellow);
+    padding: 0;
+  }
+
+  .stat-strip-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .stat-block {
+    padding: 1.25rem 1.5rem;
+    border-right: 1px solid rgba(0,0,0,0.1);
+    transition: background 0.2s;
+  }
+
+  .stat-block:last-child { border-right: none; }
+  .stat-block:hover { background: rgba(0,0,0,0.05); }
+
+  .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 32px;
+    color: var(--green-dark);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-lbl {
+    font-size: 11px;
+    font-weight: 500;
+    color: rgba(26,74,26,0.75);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    line-height: 1.4;
+  }
+
+  /* ── MAIN CONTENT ── */
+  .main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2.5rem 2.5rem;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--gray-light);
+  }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--green-mid);
+  }
+
+  /* ── SKILL CARDS (top) ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 2.5rem;
+  }
+
+  .skill-card {
+    background: var(--white);
+    border: 1px solid var(--gray-light);
+    border-radius: 12px;
+    padding: 20px 22px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skill-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: var(--green-mid);
+    border-radius: 12px 0 0 12px;
+  }
+
+  .skill-card.yellow::before { background: var(--yellow); }
+  .skill-card.active, .skill-card:hover {
+    border-color: var(--green-mid);
+    box-shadow: 0 4px 20px rgba(45,106,45,0.1);
+    transform: translateY(-1px);
+  }
+
+  .skill-card.yellow.active, .skill-card.yellow:hover {
+    border-color: var(--yellow);
+    box-shadow: 0 4px 20px rgba(245,193,0,0.2);
+  }
+
+  .skill-card.full { grid-column: 1 / -1; }
+
+  .skill-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 6px;
+  }
+
+  .skill-detail {
+    font-size: 12px;
+    color: var(--gray);
+    line-height: 1.55;
+    margin-bottom: 12px;
+  }
+
+  .pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .pill {
+    font-size: 10px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: var(--off-white);
+    color: var(--green-dark);
+    border: 1px solid var(--gray-light);
+    letter-spacing: 0.02em;
+  }
+
+  .pill.green { background: #EAF3E0; border-color: #B5D99C; color: var(--green-dark); }
+  .pill.yellow { background: var(--yellow-light); border-color: #E8D060; color: #5A4700; }
+
+  /* ── TIMELINE ── */
+  .timeline-section { margin-bottom: 2.5rem; }
+
+  .timeline {
+    position: relative;
+    padding-left: 24px;
+  }
+
+  .tl-spine {
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--green-mid), var(--green-light), var(--gray-light));
+    border-radius: 2px;
+  }
+
+  .tl-item {
+    position: relative;
+    margin-bottom: 16px;
+    animation: fadeUp 0.4s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .tl-dot {
+    position: absolute;
+    left: -20px;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--green-mid);
+    border: 2px solid var(--white);
+    box-shadow: 0 0 0 2px var(--green-mid);
+  }
+
+  .tl-dot.yellow {
+    background: var(--yellow);
+    box-shadow: 0 0 0 2px var(--yellow);
+  }
+
+  .tl-card {
+    background: var(--white);
+    border: 1px solid var(--gray-light);
+    border-radius: 12px;
+    padding: 18px 20px;
+    transition: all 0.2s;
+  }
+
+  .tl-card:hover {
+    border-color: var(--green-light);
+    box-shadow: 0 2px 16px rgba(45,106,45,0.08);
+  }
+
+  .tl-head {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 3px;
+  }
+
+  .tl-org {
+    font-size: 12px;
+    color: var(--green-mid);
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+
+  .tl-impact {
+    font-size: 12px;
+    color: var(--gray);
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+
+  .badge {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .badge-green { background: #EAF3E0; color: var(--green-dark); }
+  .badge-yellow { background: var(--yellow-light); color: #5A4700; }
+
+  /* ── CHARTS ── */
+  .charts-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 2.5rem;
+  }
+
+  .chart-card {
+    background: var(--white);
+    border: 1px solid var(--gray-light);
+    border-radius: 12px;
+    padding: 20px 22px;
+  }
+
+  .chart-title {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--green-dark);
+    margin-bottom: 16px;
+  }
+
+  .chart-wrap {
+    position: relative;
+    height: 180px;
+  }
+
+  /* ── TABS ── */
+  .tab-group {
+    background: var(--white);
+    border: 1px solid var(--gray-light);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 2.5rem;
+  }
+
+  .tab-bar {
+    display: flex;
+    border-bottom: 1px solid var(--gray-light);
+    background: var(--off-white);
+  }
+
+  .tab-btn {
+    flex: 1;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 12px 8px;
+    border: none;
+    background: transparent;
+    color: var(--gray);
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.03em;
+    border-bottom: 2px solid transparent;
+    text-align: center;
+  }
+
+  .tab-btn:hover { color: var(--green-mid); }
+
+  .tab-btn.active {
+    color: var(--green-dark);
+    border-bottom-color: var(--green-mid);
+    background: var(--white);
+    font-weight: 600;
+  }
+
+  .tab-content { padding: 22px; display: none; }
+  .tab-content.active { display: block; }
+
+  .tab-body {
+    font-size: 13px;
+    color: var(--gray);
+    line-height: 1.7;
+    margin-bottom: 14px;
+  }
+
+  .outcome-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .outcome-chip {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 8px;
+    background: var(--off-white);
+    color: var(--green-dark);
+    border: 1px solid var(--gray-light);
+  }
+
+  .outcome-chip.highlight {
+    background: var(--yellow);
+    border-color: #E8C600;
+    color: var(--green-dark);
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: var(--green-dark);
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+  }
+
+  .footer strong { color: var(--yellow); font-weight: 500; }
+
+  /* ── PANEL (detail overlay) ── */
+  .detail-panel {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s;
+  }
+
+  .detail-panel.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .panel-box {
+    background: var(--white);
+    border-radius: 16px;
+    width: 90%;
+    max-width: 520px;
+    padding: 30px;
+    transform: translateY(20px);
+    transition: transform 0.25s;
+  }
+
+  .detail-panel.open .panel-box { transform: translateY(0); }
+
+  .panel-close {
+    float: right;
+    background: var(--off-white);
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+    color: var(--gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 12px;
+  }
+
+  .panel-close:hover { background: var(--gray-light); }
+
+  .panel-tag {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--green-mid);
+    margin-bottom: 8px;
+  }
+
+  .panel-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 24px;
+    color: var(--text-dark);
+    margin-bottom: 12px;
+  }
+
+  .panel-body {
+    font-size: 14px;
+    color: var(--gray);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  .panel-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .pstat {
+    background: var(--off-white);
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+  }
+
+  .pstat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 24px;
+    color: var(--green-dark);
+  }
+
+  .pstat-lbl {
+    font-size: 10px;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 2px;
+  }
+
+  @media (max-width: 640px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-contact { text-align: left; }
+    .stat-strip-inner { grid-template-columns: repeat(2, 1fr); }
+    .skills-grid { grid-template-columns: 1fr; }
+    .charts-row { grid-template-columns: 1fr; }
+    .hero-name { font-size: 32px; }
+    .main { padding: 1.5rem; }
+    .topbar { padding: 0 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<nav class="topbar">
+  <div class="logo-mark">
+    <svg class="sun-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="20" cy="20" r="10" fill="#F5C100"/>
+      <polygon points="20,2 23,10 20,8 17,10" fill="#F5C100"/>
+      <polygon points="20,38 23,30 20,32 17,30" fill="#F5C100"/>
+      <polygon points="2,20 10,17 8,20 10,23" fill="#F5C100"/>
+      <polygon points="38,20 30,17 32,20 30,23" fill="#F5C100"/>
+      <polygon points="5.86,5.86 11.31,12.69 9.17,10.83 12.69,11.31" fill="#F5C100"/>
+      <polygon points="34.14,34.14 28.69,27.31 30.83,29.17 27.31,28.69" fill="#F5C100"/>
+      <polygon points="34.14,5.86 27.31,11.31 29.17,9.17 28.69,12.69" fill="#F5C100"/>
+      <polygon points="5.86,34.14 12.69,28.69 10.83,30.83 11.31,27.31" fill="#F5C100"/>
+    </svg>
+    <div class="brand-text">
+      Sarjil Shah
+      <span>Candidate Profile</span>
+    </div>
+  </div>
+  <div class="nav-pills">
+    <button class="nav-pill active" onclick="switchTab('overview')">Overview</button>
+    <button class="nav-pill" onclick="switchTab('experience')">Experience</button>
+    <button class="nav-pill" onclick="switchTab('results')">Results</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">Digital Marketing Analyst · Application</div>
+      <h1 class="hero-name">Sarjil Shah</h1>
+      <p class="hero-role">M.Sc. Marketing · UT Dallas<br>3+ years across SEO, SEM, analytics & local search</p>
+      <div class="hero-tags">
+        <span class="hero-tag">GA4 · Looker Studio</span>
+        <span class="hero-tag">Google Ads · Ahrefs</span>
+        <span class="hero-tag">Yext · GBP</span>
+        <span class="hero-tag">GTM · Tag Audits</span>
+        <span class="hero-tag">Sprint Planning</span>
+      </div>
+    </div>
+    <div class="hero-contact">
+      <a href="mailto:shahsarjil901@gmail.com">shahsarjil901@gmail.com</a><br>
+      <span>(650) 720-2228</span><br>
+      <span style="font-size:11px; color:rgba(255,255,255,0.4); margin-top:6px; display:block;">Fort Mill, SC region preferred</span>
+    </div>
+  </div>
+</section>
+
+<!-- STAT STRIP -->
+<div class="stat-strip">
+  <div class="stat-strip-inner">
+    <div class="stat-block">
+      <div class="stat-num" id="ctr43">0%</div>
+      <div class="stat-lbl">Search traffic lift</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-num" id="ctr38">0%</div>
+      <div class="stat-lbl">Reporting accuracy gain</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-num" id="ctr34">0%</div>
+      <div class="stat-lbl">Local organic rank up</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-num" id="ctr31">0%</div>
+      <div class="stat-lbl">Ad spend waste cut</div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<main class="main" id="overview-section">
+
+  <!-- SKILLS -->
+  <div class="section-header">
+    <span class="section-label">Five strengths · why I fit</span>
+    <div class="section-rule"></div>
+    <span style="font-size:11px; color:var(--gray);">click to expand</span>
+  </div>
+
+  <div class="skills-grid">
+    <div class="skill-card" onclick="openPanel('dashboard')">
+      <div class="skill-title">Dashboards & reporting</div>
+      <div class="skill-detail">Live multi-source dashboards for executive visibility built and maintained across GA4, Google Ads, and SimilarWeb integrations.</div>
+      <div class="pill-row">
+        <span class="pill green">GA4</span>
+        <span class="pill green">Looker Studio</span>
+        <span class="pill green">SimilarWeb</span>
+        <span class="pill">Google Ads</span>
+      </div>
+    </div>
+    <div class="skill-card" onclick="openPanel('seosem')">
+      <div class="skill-title">SEO / SEM tool stack</div>
+      <div class="skill-detail">End-to-end paid and organic channel management,keyword monitoring, spend pacing, and continuous optimization across roles.</div>
+      <div class="pill-row">
+        <span class="pill green">Search Console</span>
+        <span class="pill green">Ahrefs</span>
+        <span class="pill green">Google Ads</span>
+        <span class="pill">Bing Ads</span>
+      </div>
+    </div>
+    <div class="skill-card" onclick="openPanel('integrity')">
+      <div class="skill-title">Data integrity</div>
+      <div class="skill-detail">Pixel audits, UTM framework fixes, cross-platform attribution accuracy and eliminated all discrepancies across active eCommerce accounts.</div>
+      <div class="pill-row">
+        <span class="pill green">GTM</span>
+        <span class="pill green">Meta Pixel</span>
+        <span class="pill">UTM structure</span>
+        <span class="pill">Programmatic</span>
+      </div>
+    </div>
+    <div class="skill-card yellow" onclick="openPanel('local')">
+      <div class="skill-title">Local search</div>
+      <div class="skill-detail">GBP and Yext listing governance across multiple locations and improved local organic rankings by 34% and CTR by 27%.</div>
+      <div class="pill-row">
+        <span class="pill yellow">Yext</span>
+        <span class="pill yellow">Google Business Profile</span>
+        <span class="pill yellow">Local SEO</span>
+      </div>
+    </div>
+    <div class="skill-card full" onclick="openPanel('agile')">
+      <div class="skill-title">Agile self-starter</div>
+      <div class="skill-detail">Sprint planning, A/B testing, and monthly performance reporting owned end-to-end. Automated workflows saving 8+ hrs/week. Taught GA4 and marketing analytics as TA at UT Dallas. I am also able to ramp fast, explain clearly, and deliver without hand-holding.</div>
+      <div class="pill-row">
+        <span class="pill green">Sprint planning</span>
+        <span class="pill green">A/B testing</span>
+        <span class="pill">AI automation</span>
+        <span class="pill">Teaching / training</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHARTS -->
+  <div class="section-header">
+    <span class="section-label">Performance snapshot</span>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="charts-row">
+    <div class="chart-card">
+      <div class="chart-title">Campaign efficiency gains</div>
+      <div class="chart-wrap"><canvas id="barChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Channel coverage</div>
+      <div class="chart-wrap"><canvas id="radarChart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="section-header" id="experience-section">
+    <span class="section-label">Career story</span>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="timeline-section">
+    <div class="timeline">
+      <div class="tl-spine"></div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-head">Built real-time executive dashboards</div>
+          <div class="tl-org">Community Dreams Foundation · 2025</div>
+          <div class="tl-impact">Rebuilt reporting infrastructure integrating GA4, Google Ads, and SimilarWeb. Improved reporting accuracy by 38% and gave leadership live visibility across all KPIs.</div>
+          <span class="badge badge-green">Dashboards & reporting</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-head">Managed full SEO/SEM stack, drove 43% traffic lift</div>
+          <div class="tl-org">Community Dreams Foundation · 2025</div>
+          <div class="tl-impact">Daily monitoring workflows using Search Console, Ahrefs, Google Ads, and Bing Ads which improved search traffic acquisition by 43% and reduced wasted spend by 31%.</div>
+          <span class="badge badge-green">SEO / SEM stack</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot yellow"></div>
+        <div class="tl-card">
+          <div class="tl-head">Executed Yext + GBP local search governance</div>
+          <div class="tl-org">Community Dreams Foundation · 2025</div>
+          <div class="tl-impact">Optimized all listings for local visibility — improved local organic rankings by 34% and click-through rates by 27% through structured platform governance.</div>
+          <span class="badge badge-yellow">Local search</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-head">Paid media optimization across eCommerce clients</div>
+          <div class="tl-org">SmartData Solutions · 2024</div>
+          <div class="tl-impact">Weekly KPI reports tracking CPM, CPA, CPC, CTR — improved campaign efficiency by 22% and reduced cost per acquisition by 19%.</div>
+          <span class="badge badge-green">SEO / SEM stack</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-head">Led pixel tracking and tagging integrity across accounts</div>
+          <div class="tl-org">Prembhav Industries · 2020–2022</div>
+          <div class="tl-impact">Diagnosed and resolved pixel tracking, UTM structures, and tagging across Google Ads, Meta, and programmatic platforms — eliminated all cross-platform discrepancies.</div>
+          <span class="badge badge-green">Data integrity</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-head">Marketing Teaching Assistant · UT Dallas</div>
+          <div class="tl-org">University of Texas at Dallas · 2023–2024</div>
+          <div class="tl-impact">Taught Google Analytics, marketing automation, Adobe Suite, WordPress, e-commerce strategy, and budget management — demonstrates deep working knowledge and ability to onboard others fast.</div>
+          <span class="badge badge-green">Agile self-starter</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTS TAB GROUP -->
+  <div class="section-header" id="results-section">
+    <span class="section-label">Results by area</span>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="tab-group">
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchResultTab(this, 'r-dash')">Dashboards</button>
+      <button class="tab-btn" onclick="switchResultTab(this, 'r-seo')">SEO / SEM</button>
+      <button class="tab-btn" onclick="switchResultTab(this, 'r-data')">Data integrity</button>
+      <button class="tab-btn" onclick="switchResultTab(this, 'r-local')">Local search</button>
+      <button class="tab-btn" onclick="switchResultTab(this, 'r-agile')">Agility</button>
+    </div>
+
+    <div id="r-dash" class="tab-content active">
+      <div class="tab-body">Rebuilt and maintained dashboards that integrated GA4, Google Ads, and SimilarWeb data. Supported tracking audits to ensure data integrity and giving leadership real-time visibility and improving reporting accuracy by 38%. Dashboards enabled faster decisions by surfacing the right data at the right level.</div>
+      <div class="outcome-row">
+        <div class="outcome-chip highlight">+38% reporting accuracy</div>
+        <div class="outcome-chip">GA4 + Ads + SimilarWeb</div>
+        <div class="outcome-chip">Real-time exec visibility</div>
+      </div>
+    </div>
+
+    <div id="r-seo" class="tab-content">
+      <div class="tab-body">Built daily and weekly monitoring workflows using Google Search Console, Ahrefs, Google Ads, and Bing Ads. Tracked keyword rankings and spend pacing, improved search traffic acquisition by 43% and reduced wasted ad spend by 31%. Identified optimization opportunities continuously against weekly targets.</div>
+      <div class="outcome-row">
+        <div class="outcome-chip highlight">+43% traffic acquisition</div>
+        <div class="outcome-chip highlight">-31% wasted spend</div>
+        <div class="outcome-chip">-22% CPC</div>
+      </div>
+    </div>
+
+    <div id="r-data" class="tab-content">
+      <div class="tab-body">Demonstrated strong technical competency in troubleshooting pixel tracking, UTM structures, and tagging frameworks across Google Ads, Meta Ads, and programmatic platforms. Ensured data integrity and attribution accuracy which eliminated cross-platform discrepancies across all active eCommerce accounts.</div>
+      <div class="outcome-row">
+        <div class="outcome-chip highlight">Zero cross-platform errors</div>
+        <div class="outcome-chip">GTM + Meta Pixel</div>
+        <div class="outcome-chip">Full attribution accuracy</div>
+      </div>
+    </div>
+
+    <div id="r-local" class="tab-content">
+      <div class="tab-body">Executed platform governance updates via Yext and Google Business Profile, optimizing all listings for local search visibility. Improved local organic rankings by 34% and increased click-through rates by 27%. Managed listing consistency, NAP accuracy, and local citation structure.</div>
+      <div class="outcome-row">
+        <div class="outcome-chip highlight">+34% local organic rank</div>
+        <div class="outcome-chip highlight">+27% CTR</div>
+        <div class="outcome-chip">Yext + GBP governance</div>
+      </div>
+    </div>
+
+    <div id="r-agile" class="tab-content">
+      <div class="tab-body">Assembled monthly performance reports, participated in sprint planning, and ran A/B testing independently. Used AI tools to automate repetitive workflows — freeing 8+ hours weekly for strategic work. As a TA at UT Dallas, taught analytics and marketing tools to students.</div>
+      <div class="outcome-row">
+        <div class="outcome-chip highlight">8+ hrs/week saved via automation</div>
+        <div class="outcome-chip">Sprint owner</div>
+        <div class="outcome-chip">UT Dallas TA</div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  Prepared for <strong>Sunbelt Rentals</strong> · Sarjil Shah · <a href="mailto:shahsarjil901@gmail.com" style="color:var(--yellow); text-decoration:none;">shahsarjil901@gmail.com</a>
+</footer>
+
+<!-- DETAIL PANEL -->
+<div class="detail-panel" id="panel" onclick="closePanel(event)">
+  <div class="panel-box">
+    <button class="panel-close" onclick="closePanel(null, true)">✕</button>
+    <div class="panel-tag" id="panel-tag"></div>
+    <div class="panel-title" id="panel-title"></div>
+    <div class="panel-body" id="panel-body"></div>
+    <div class="panel-stats" id="panel-stats"></div>
+  </div>
+</div>
+
+<script>
+const panels = {
+  dashboard: {
+    tag: 'Strength 01 · Dashboards & Reporting',
+    title: 'Built for real-time decisions',
+    body: 'At Community Dreams Foundation, I rebuilt the entire reporting infrastructure from scratch That included things like pulling GA4, Google Ads, and SimilarWeb into unified Looker Studio dashboards. These weren\'t just pretty charts: leadership used them weekly to make budget and campaign decisions. Result: reporting accuracy improved by 38%, and data latency dropped from days to hours.',
+    stats: [{ n:'38%', l:'Accuracy gain' }, { n:'3', l:'Data sources unified' }, { n:'Weekly', l:'Leadership cadence' }]
+  },
+  seosem: {
+    tag: 'Strength 02 · SEO / SEM Stack',
+    title: 'Full-stack search, start to finish',
+    body: 'Across three roles , I ran the full SEO cycle from keyword research, ranking monitoring, bid management, to spend pacing. Using Search Console, Ahrefs, Google Ads, and Bing Ads in daily workflows, he drove a 43% increase in search traffic and cut wasted ad spend by 31% in a single engagement.',
+    stats: [{ n:'43%', l:'Traffic lift' }, { n:'-31%', l:'Wasted spend' }, { n:'-22%', l:'CPC reduction' }]
+  },
+  integrity: {
+    tag: 'Strength 03 · Data Integrity',
+    title: 'Clean data, accurate attribution',
+    body: 'I also diagnosed and fixed pixel tracking, UTM structures, and tagging frameworks across Google Ads, Meta Ads, and programmatic platforms at Prembhav Industries — eliminating all cross-platform discrepancies across active eCommerce accounts. I treats data accuracy as non-negotiable, not an afterthought.',
+    stats: [{ n:'0', l:'Discrepancies left' }, { n:'3+', l:'Platforms audited' }, { n:'100%', l:'Attribution accuracy' }]
+  },
+  local: {
+    tag: 'Strength 04 · Local Search',
+    title: 'Hands-on with Yext & GBP',
+    body: 'At Community Dreams Foundation, I managed local listing governance through Yext and Google Business Profile — optimizing all listings for local visibility, consistency, and search ranking. The results: local organic rankings improved by 34% and click-through rates grew 27% within the engagement period.',
+    stats: [{ n:'+34%', l:'Local rank lift' }, { n:'+27%', l:'CTR increase' }, { n:'Yext', l:'Platform managed' }]
+  },
+  agile: {
+    tag: 'Strength 05 · Agile Self-Starter',
+    title: 'Owns it, end to end',
+    body: 'I have operated independently across all these roles — running sprint planning, A/B tests, and monthly reporting without hand-holding. I used AI tools to automate repetitive workflows, freeing 8+ hours per week for strategic work. As a Teaching Assistant at UT Dallas, he taught GA4, marketing automation, and budget management — showing he ramps fast and brings others along.',
+    stats: [{ n:'8+', l:'Hrs/week automated' }, { n:'2 yrs', l:'TA at UT Dallas' }, { n:'End-to-end', l:'Project ownership' }]
+  }
+};
+
+function openPanel(id) {
+  const d = panels[id];
+  document.getElementById('panel-tag').textContent = d.tag;
+  document.getElementById('panel-title').textContent = d.title;
+  document.getElementById('panel-body').textContent = d.body;
+  document.getElementById('panel-stats').innerHTML = d.stats.map(s =>
+    `<div class="pstat"><div class="pstat-num">${s.n}</div><div class="pstat-lbl">${s.l}</div></div>`
+  ).join('');
+  document.getElementById('panel').classList.add('open');
+}
+
+function closePanel(e, force) {
+  if (force || (e && e.target === document.getElementById('panel'))) {
+    document.getElementById('panel').classList.remove('open');
+  }
+}
+
+function switchTab(name) {
+  document.querySelectorAll('.nav-pill').forEach(p => p.classList.remove('active'));
+  event.target.classList.add('active');
+  const targets = { overview: 'overview-section', experience: 'experience-section', results: 'results-section' };
+  if (targets[name]) {
+    document.getElementById(targets[name]).scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+function switchResultTab(btn, id) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(id).classList.add('active');
+}
+
+function animateCount(el, target, suffix) {
+  let current = 0;
+  const step = target / 40;
+  const timer = setInterval(() => {
+    current = Math.min(current + step, target);
+    el.textContent = Math.round(current) + suffix;
+    if (current >= target) clearInterval(timer);
+  }, 30);
+}
+
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    animateCount(document.getElementById('ctr43'), 43, '%');
+    animateCount(document.getElementById('ctr38'), 38, '%');
+    animateCount(document.getElementById('ctr34'), 34, '%');
+    animateCount(document.getElementById('ctr31'), 31, '%');
+  }, 300);
+
+  const green = '#2D6A2D';
+  const yellow = '#F5C100';
+  const greenLight = '#4A8C3F';
+
+  new Chart(document.getElementById('barChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Traffic lift', 'Report accuracy', 'Local rank', 'Ad spend cut', 'Campaign eff.', 'CPC cut'],
+      datasets: [{
+        data: [43, 38, 34, 31, 22, 19],
+        backgroundColor: [green, green, yellow, yellow, greenLight, greenLight],
+        borderRadius: 6,
+        borderSkipped: false
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 50,
+          ticks: { callback: v => v + '%', font: { size: 10 }, color: '#6B6B6B' },
+          grid: { color: '#E8E6DE' }
+        },
+        x: {
+          ticks: { font: { size: 9 }, color: '#6B6B6B', maxRotation: 30 },
+          grid: { display: false }
+        }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('radarChart'), {
+    type: 'radar',
+    data: {
+      labels: ['SEO', 'Paid Search', 'Analytics', 'Local Search', 'Data QA', 'Reporting'],
+      datasets: [{
+        label: 'Sarjil Shah',
+        data: [90, 85, 88, 82, 90, 88],
+        fill: true,
+        backgroundColor: 'rgba(45,106,45,0.15)',
+        borderColor: green,
+        borderWidth: 2,
+        pointBackgroundColor: yellow,
+        pointBorderColor: green,
+        pointRadius: 4
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        r: {
+          min: 0, max: 100,
+          ticks: { display: false },
+          grid: { color: '#E8E6DE' },
+          pointLabels: { font: { size: 10 }, color: '#6B6B6B' }
+        }
+      }
+    }
+  });
+});
+</script>
+</body>
+</html>
+    
+  </body>
+  
+</html>
