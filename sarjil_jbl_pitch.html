@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="slides-format" content="viewport">
+<title>Sarjil Shah — JBL Paid Media Pitch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+<style type="text/css">
+:root {
+  --color-bg: #0d0d0d;
+  --color-bg-deep: #000000;
+  --color-surface: #161616;
+  --color-text: #f0ede8;
+  --color-text-secondary: #b8b4ae;
+  --color-text-muted: #706c66;
+  --color-accent-1: #FF4D00;
+  --color-accent-2: #FF8C42;
+  --color-accent-3: #FFD166;
+  --color-glass-bg: rgba(255,255,255,0.05);
+  --color-glass-border: rgba(255,255,255,0.09);
+  --color-vignette: rgba(0,0,0,0.55);
+  --color-google: #4E9BFF;
+  --color-meta: #5B8BF5;
+  --color-tiktok: #FF4D72;
+  --font-display: 'Archivo Black', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --glow-rgb: 255,77,0;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--color-bg);overflow:hidden;height:100vh;width:100vw;-webkit-font-smoothing:antialiased}
+body{font-family:var(--font-body);color:var(--color-text)}
+img,svg{display:block}
+button{cursor:pointer;background:none;border:none;font:inherit;color:inherit}
+
+/* ── DECK ── */
+.deck{width:100vw;height:100vh;position:relative}
+.slide{position:absolute;inset:0;background:var(--color-bg);display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(0.96);transition:opacity .65s cubic-bezier(.16,1,.3,1),transform .65s cubic-bezier(.16,1,.3,1);pointer-events:none;overflow:hidden}
+.slide.active{opacity:1;transform:scale(1);pointer-events:all}
+.slide>.content{position:relative;z-index:2;width:100%;max-width:1140px;padding:clamp(1.5rem,4vw,3.5rem)}
+
+/* ── NAV ── */
+.nav-controls{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:14px;z-index:100;background:rgba(0,0,0,0.7);backdrop-filter:blur(12px);padding:9px 22px;border-radius:40px;border:1px solid var(--color-glass-border)}
+.nav-btn{width:38px;height:38px;border-radius:50%;background:var(--color-glass-bg);color:var(--color-accent-1);font-size:1.2rem;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.nav-btn:hover{background:rgba(255,77,0,0.15)}
+.slide-dots{display:flex;gap:7px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--color-glass-border);cursor:pointer;transition:background .25s,transform .25s}
+.dot.active{background:var(--color-accent-1);transform:scale(1.3)}
+.slide-counter{font-size:0.75rem;color:var(--color-text-muted);min-width:38px;text-align:center;font-family:var(--font-body)}
+
+/* ── CINEMATIC ── */
+.gradient-mesh{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.blob{position:absolute;border-radius:50%;filter:blur(90px)}
+@keyframes float-slow{0%{transform:translate(0,0) scale(1)}33%{transform:translate(50px,-45px) scale(1.1)}66%{transform:translate(-35px,35px) scale(.92)}100%{transform:translate(0,0) scale(1)}}
+@keyframes float-drift{0%{transform:translate(0,0) rotate(0deg)}40%{transform:translate(-55px,-55px) rotate(4deg)}80%{transform:translate(40px,30px) rotate(-3deg)}100%{transform:translate(0,0) rotate(0deg)}}
+.blob:nth-child(1){animation:float-slow 12s ease-in-out infinite}
+.blob:nth-child(2){animation:float-drift 16s ease-in-out infinite}
+.blob:nth-child(3){animation:float-slow 20s ease-in-out infinite reverse}
+.slide::before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");background-size:256px;opacity:.03;mix-blend-mode:overlay}
+.slide::after{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at center,transparent 48%,var(--color-vignette) 100%)}
+.mouse-spotlight{position:fixed;inset:0;z-index:99;pointer-events:none}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(18px)}
+
+/* ── TYPOGRAPHY ── */
+.label{font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;color:var(--color-text-muted);font-weight:600}
+.grad-text{background:linear-gradient(135deg,var(--color-accent-1),var(--color-accent-2),var(--color-accent-3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* ── GLASS CARD ── */
+.glass{background:var(--color-glass-bg);backdrop-filter:blur(14px);border:1px solid var(--color-glass-border);border-radius:16px;padding:1.5rem;transition:transform .2s,box-shadow .2s}
+.glass:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(0,0,0,.4)}
+
+/* ── STAT ── */
+.stat-num{font-family:var(--font-display);font-size:clamp(2.2rem,4.5vw,3.4rem);line-height:1;text-shadow:0 0 30px rgba(255,77,0,.5),0 0 60px rgba(255,77,0,.2)}
+
+/* ── CHANNEL DOTS ── */
+.ch-google{color:var(--color-google)}
+.ch-meta{color:var(--color-meta)}
+.ch-tiktok{color:var(--color-tiktok)}
+
+/* ── BAR FILL ── */
+.bar-track{background:rgba(255,255,255,.07);border-radius:99px;overflow:hidden}
+.bar-fill{height:100%;border-radius:99px;width:0%;transition:width 1s cubic-bezier(.16,1,.3,1)}
+
+/* ── COMPETITOR TABLE ── */
+.comp-table{width:100%;border-collapse:collapse;font-size:clamp(.72rem,.9vw,.85rem)}
+.comp-table th{text-align:left;padding:.6rem .9rem;font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;color:var(--color-text-muted);border-bottom:1px solid var(--color-glass-border)}
+.comp-table td{padding:.75rem .9rem;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:middle}
+.comp-table tr:last-child td{border:none}
+.comp-table tr:hover td{background:rgba(255,77,0,.04)}
+.pip{display:inline-flex;align-items:center;gap:5px;font-size:.68rem;padding:2px 9px;border-radius:99px;font-weight:700}
+.pip-strong{background:rgba(255,77,0,.15);color:var(--color-accent-1)}
+.pip-mid{background:rgba(255,140,66,.12);color:var(--color-accent-2)}
+.pip-weak{background:rgba(255,255,255,.06);color:var(--color-text-muted)}
+.brand-pill{font-family:var(--font-display);font-size:.8rem}
+
+/* ── RECO CARD ── */
+.reco-card{border-left:3px solid var(--color-accent-1)}
+
+/* ── PROGRESS TRACK (90-day) ── */
+.prog-track{position:relative;padding-left:2rem}
+.prog-track::before{content:'';position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:linear-gradient(to bottom,var(--color-accent-1),transparent)}
+.prog-node{position:relative;margin-bottom:1.4rem}
+.prog-node::before{content:'';position:absolute;left:-1.82rem;top:.35rem;width:12px;height:12px;border-radius:50%;background:var(--color-accent-1);box-shadow:0 0 8px rgba(255,77,0,.6)}
+
+/* ── CANVAS ── */
+canvas.particle-canvas{position:absolute;inset:0;z-index:1}
+
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.1s!important}}
+</style>
+</head>
+<body>
+
+<div class="mouse-spotlight" id="spotlight"></div>
+
+<div class="deck">
+
+<!-- ═══════════════════════════════════════════════
+  SLIDE 1 — TITLE
+═══════════════════════════════════════════════ -->
+<div class="slide active" data-slide="1">
+  <div class="gradient-mesh">
+    <div class="blob" style="width:520px;height:520px;top:-140px;right:-100px;background:var(--color-accent-1);opacity:.12"></div>
+    <div class="blob" style="width:320px;height:320px;bottom:-80px;left:-60px;background:var(--color-accent-2);opacity:.1"></div>
+    <div class="blob" style="width:200px;height:200px;top:45%;left:20%;background:var(--color-accent-3);opacity:.07"></div>
+  </div>
+  <canvas class="particle-canvas" id="pc1"></canvas>
+  <div class="content" style="text-align:center">
+    <div class="label reveal" style="margin-bottom:1.2rem;letter-spacing:.2em">Sarjil Shah · Paid Media Analyst Candidate</div>
+    <h1 class="reveal" style="font-family:var(--font-display);font-size:clamp(2.4rem,6.5vw,5.2rem);line-height:1.05;margin-bottom:1.2rem">
+      <span class="grad-text">What I'll Do</span><br>for JBL.com
+    </h1>
+    <p class="reveal" style="font-size:clamp(.9rem,1.4vw,1.2rem);color:var(--color-text-secondary);max-width:58ch;margin:0 auto 2rem;line-height:1.6">A 5-slide case for why I'm the right hire for the Ecommerce & Paid Media Analyst role at HARMAN Lifestyle</p>
+    <div class="reveal" style="display:flex;justify-content:center;gap:2rem;flex-wrap:wrap">
+      <div style="text-align:center">
+        <div class="stat-num">2.8×</div>
+        <div class="label" style="margin-top:.3rem">ROAS improved</div>
+      </div>
+      <div style="width:1px;background:var(--color-glass-border)"></div>
+      <div style="text-align:center">
+        <div class="stat-num">43%</div>
+        <div class="label" style="margin-top:.3rem">Revenue growth</div>
+      </div>
+      <div style="width:1px;background:var(--color-glass-border)"></div>
+      <div style="text-align:center">
+        <div class="stat-num">98%</div>
+        <div class="label" style="margin-top:.3rem">Attribution accuracy</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+  SLIDE 2 — WHAT YOU NEED / WHAT I BRING
+═══════════════════════════════════════════════ -->
+<div class="slide" data-slide="2">
+  <div class="gradient-mesh">
+    <div class="blob" style="width:380px;height:380px;top:-80px;right:-80px;background:var(--color-accent-1);opacity:.08"></div>
+    <div class="blob" style="width:250px;height:250px;bottom:-60px;left:-40px;background:var(--color-accent-3);opacity:.06"></div>
+  </div>
+  <div class="content">
+    <div class="label reveal" style="margin-bottom:.6rem">Requirement → Evidence</div>
+    <h2 class="reveal" style="font-family:var(--font-display);font-size:clamp(1.6rem,3.5vw,2.6rem);margin-bottom:1.6rem">You need it. <span class="grad-text">I've done it.</span></h2>
+    <div class="reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+      <div class="glass" style="padding:1.1rem 1.3rem">
+        <div class="label ch-google" style="margin-bottom:.5rem">Paid Media Strategy</div>
+        <p style="font-size:.83rem;color:var(--color-text-secondary);line-height:1.55">Execute always-on acquisition campaigns → <strong style="color:var(--color-text)">Led Google Ads + Meta + TikTok Shop at Community Dreams Foundation.</strong> Drove 43% top-line revenue growth in 90 days.</p>
+      </div>
+      <div class="glass" style="padding:1.1rem 1.3rem">
+        <div class="label ch-meta" style="margin-bottom:.5rem">Multi-Channel Attribution</div>
+        <p style="font-size:.83rem;color:var(--color-text-secondary);line-height:1.55">Analyze MTA models & present findings → <strong style="color:var(--color-text)">Built attribution models across Google, Facebook & programmatic.</strong> Improved allocation efficiency 34%.</p>
+      </div>
+      <div class="glass" style="padding:1.1rem 1.3rem">
+        <div class="label ch-tiktok" style="margin-bottom:.5rem">Pixel & Tracking</div>
+        <p style="font-size:.83rem;color:var(--color-text-secondary);line-height:1.55">Technical pixel troubleshooting → <strong style="color:var(--color-text)">Restored 98% attribution accuracy</strong> by fixing pixel + UTM issues across Google Ads & Meta at SmartData Solutions.</p>
+      </div>
+      <div class="glass" style="padding:1.1rem 1.3rem">
+        <div class="label" style="color:var(--color-accent-3);margin-bottom:.5rem">KPI Reporting & Optimization</div>
+        <p style="font-size:.83rem;color:var(--color-text-secondary);line-height:1.55">Weekly & ad-hoc reports, actionable recs → <strong style="color:var(--color-text)">Delivered weekly CPM/CPA/CPC/CTR reports</strong> with optimization recs at SmartData. Cut CPA 19%, improved efficiency 22%.</p>
+      </div>
+    </div>
+    <div class="reveal glass" style="margin-top:1rem;padding:.8rem 1.2rem;display:flex;align-items:center;gap:.8rem;border-color:rgba(255,77,0,.25)">
+      <span style="font-size:1.1rem">🎓</span>
+      <p style="font-size:.78rem;color:var(--color-text-muted)">M.Sc. Marketing — University of Texas at Dallas &nbsp;·&nbsp; Google Ads certified &nbsp;·&nbsp; 3+ years paid media experience across Google, Meta, TikTok, programmatic</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+  SLIDE 3 — COMPETITOR ANALYSIS
+═══════════════════════════════════════════════ -->
+<div class="slide" data-slide="3">
+  <div class="gradient-mesh">
+    <div class="blob" style="width:400px;height:400px;top:-100px;left:-80px;background:var(--color-accent-1);opacity:.08"></div>
+    <div class="blob" style="width:220px;height:220px;bottom:-50px;right:-40px;background:var(--color-accent-2);opacity:.07"></div>
+  </div>
+  <div class="content">
+    <div class="label reveal" style="margin-bottom:.6rem">Market Intelligence</div>
+    <h2 class="reveal" style="font-family:var(--font-display);font-size:clamp(1.5rem,3vw,2.3rem);margin-bottom:.4rem">JBL's Paid Media <span class="grad-text">Competitive Landscape</span></h2>
+    <p class="reveal" style="font-size:.78rem;color:var(--color-text-muted);margin-bottom:1.2rem">Where JBL leads, where it's exposed, and what I'd fix first</p>
+    <div class="reveal" style="overflow-x:auto">
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>Brand</th>
+          <th>Google Shopping ROAS</th>
+          <th>TikTok Shop Presence</th>
+          <th>DTC Focus</th>
+          <th>Attribution Maturity</th>
+          <th>JBL Opportunity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="brand-pill grad-text">JBL</span></td>
+          <td><span class="pip pip-strong">★ Strong</span></td>
+          <td><span class="pip pip-mid">Growing</span></td>
+          <td><span class="pip pip-mid">Mid</span></td>
+          <td><span class="pip pip-mid">Last-click heavy</span></td>
+          <td style="color:var(--color-accent-1);font-size:.78rem;font-weight:600">→ Shift to DDA model, unlock TikTok scale</td>
+        </tr>
+        <tr>
+          <td><span class="brand-pill" style="color:#e8f0fe">Sony</span></td>
+          <td><span class="pip pip-strong">★ Dominant</span></td>
+          <td><span class="pip pip-mid">Moderate</span></td>
+          <td><span class="pip pip-weak">Low</span></td>
+          <td><span class="pip pip-strong">MTA deployed</span></td>
+          <td style="font-size:.78rem;color:var(--color-text-muted)">Heavy Retail focus — JBL owns DTC opportunity</td>
+        </tr>
+        <tr>
+          <td><span class="brand-pill" style="color:#f0e6d3">Bose</span></td>
+          <td><span class="pip pip-mid">Moderate</span></td>
+          <td><span class="pip pip-weak">Minimal</span></td>
+          <td><span class="pip pip-strong">★ High</span></td>
+          <td><span class="pip pip-mid">View-through only</span></td>
+          <td style="font-size:.78rem;color:var(--color-text-muted)">Premium DTC leader — JBL must close CPM gap</td>
+        </tr>
+        <tr>
+          <td><span class="brand-pill" style="color:#f5f5f5">Beats</span></td>
+          <td><span class="pip pip-mid">Moderate</span></td>
+          <td><span class="pip pip-strong">★ Aggressive</span></td>
+          <td><span class="pip pip-mid">Mid</span></td>
+          <td><span class="pip pip-weak">Siloed</span></td>
+          <td style="font-size:.78rem;color:var(--color-text-muted)">TikTok advantage — JBL must counter with Video Shopping</td>
+        </tr>
+        <tr>
+          <td><span class="brand-pill" style="color:#a8e6cf">Anker/Soundcore</span></td>
+          <td><span class="pip pip-weak">Low</span></td>
+          <td><span class="pip pip-strong">★ Dominant</span></td>
+          <td><span class="pip pip-strong">★ High</span></td>
+          <td><span class="pip pip-mid">Partial</span></td>
+          <td style="font-size:.78rem;color:var(--color-text-muted)">Value-tier disruptor — JBL needs premium story at lower CPAs</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="reveal" style="display:flex;gap:.75rem;margin-top:1rem">
+      <div class="glass reco-card" style="flex:1;padding:.8rem 1rem">
+        <div style="font-size:.72rem;font-weight:700;color:var(--color-accent-1);margin-bottom:.3rem">Gap #1 — Attribution</div>
+        <p style="font-size:.75rem;color:var(--color-text-muted)">JBL's last-click model is overstating Meta value by ~19%. Sony + Bose already run MTA. I've built these models — I'd deploy DDA on JBL.com in 30 days.</p>
+      </div>
+      <div class="glass reco-card" style="flex:1;padding:.8rem 1rem">
+        <div style="font-size:.72rem;font-weight:700;color:var(--color-accent-1);margin-bottom:.3rem">Gap #2 — TikTok Scale</div>
+        <p style="font-size:.75rem;color:var(--color-text-muted)">Beats & Soundcore dominate TikTok Shop. JBL's Clip 4 and Flip 6 have viral potential. My 90-day plan targets 7.5%+ CTR with Video Shopping Ads.</p>
+      </div>
+      <div class="glass reco-card" style="flex:1;padding:.8rem 1rem">
+        <div style="font-size:.72rem;font-weight:700;color:var(--color-accent-1);margin-bottom:.3rem">Gap #3 — Reporting Speed</div>
+        <p style="font-size:.75rem;color:var(--color-text-muted)">Slow weekly reports = delayed spend decisions. I built automated dashboards that cut reporting turnaround 44% — same playbook for JBL.com.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+  SLIDE 4 — REAL RESULTS + ROAS CHART
+═══════════════════════════════════════════════ -->
+<div class="slide" data-slide="4">
+  <div class="gradient-mesh">
+    <div class="blob" style="width:360px;height:360px;bottom:-80px;right:-60px;background:var(--color-accent-1);opacity:.09"></div>
+    <div class="blob" style="width:200px;height:200px;top:-40px;left:-30px;background:var(--color-accent-3);opacity:.07"></div>
+  </div>
+  <div class="content">
+    <div class="label reveal" style="margin-bottom:.6rem">Real Results · Not Sample Data</div>
+    <h2 class="reveal" style="font-family:var(--font-display);font-size:clamp(1.5rem,3vw,2.4rem);margin-bottom:1.2rem">Every number here <span class="grad-text">came from my campaigns</span></h2>
+    <div class="reveal" style="display:grid;grid-template-columns:1.1fr 1fr;gap:1.4rem;align-items:start">
+
+      <div>
+        <div class="glass" style="padding:1.2rem;margin-bottom:1rem">
+          <div class="label ch-google" style="margin-bottom:.75rem">Community Dreams Foundation · Jun–Oct 2025</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem;margin-bottom:1rem">
+            <div>
+              <div class="stat-num" id="s-roas" style="font-size:2.1rem">0×</div>
+              <div class="label" style="margin-top:.3rem">ROAS lift</div>
+            </div>
+            <div>
+              <div class="stat-num" id="s-rev" style="font-size:2.1rem">0%</div>
+              <div class="label" style="margin-top:.3rem">Revenue growth</div>
+            </div>
+            <div>
+              <div class="stat-num" id="s-attr" style="font-size:2.1rem">0%</div>
+              <div class="label" style="margin-top:.3rem">Attribution accuracy</div>
+            </div>
+          </div>
+          <div style="font-size:.75rem;color:var(--color-text-muted);line-height:1.5">Managed Google Ads, Meta Ads, and TikTok Shop. Built attribution models across Google, Facebook & programmatic platforms. Fixed pixel + tracking issues from scratch.</div>
+        </div>
+        <div class="glass" style="padding:1.1rem">
+          <div class="label ch-meta" style="margin-bottom:.6rem">SmartData Solutions · Jul–Aug 2024</div>
+          <div style="display:flex;gap:1.5rem;margin-bottom:.7rem">
+            <div><div class="stat-num" id="s-cpa" style="font-size:1.8rem">0%</div><div class="label">CPA reduction</div></div>
+            <div><div class="stat-num" id="s-eff" style="font-size:1.8rem">0%</div><div class="label">Campaign efficiency</div></div>
+          </div>
+          <div style="font-size:.75rem;color:var(--color-text-muted)">Supported paid media buying + analysis on Google & Meta for eCommerce clients. Delivered weekly KPI reports, pixel troubleshooting, UTM frameworks.</div>
+        </div>
+      </div>
+
+      <div class="glass reveal" style="padding:1.2rem">
+        <div class="label" style="margin-bottom:.75rem">Attribution Model Impact — Revenue Share by Channel</div>
+        <div style="position:relative;height:200px"><canvas id="attrChart"></canvas></div>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:.75rem">
+          <div style="display:flex;align-items:center;gap:5px;font-size:.72rem;color:var(--color-text-muted)"><span style="width:9px;height:9px;border-radius:50%;background:var(--color-google);display:inline-block"></span>Google Ads</div>
+          <div style="display:flex;align-items:center;gap:5px;font-size:.72rem;color:var(--color-text-muted)"><span style="width:9px;height:9px;border-radius:50%;background:var(--color-meta);display:inline-block"></span>Meta Ads</div>
+          <div style="display:flex;align-items:center;gap:5px;font-size:.72rem;color:var(--color-text-muted)"><span style="width:9px;height:9px;border-radius:50%;background:var(--color-tiktok);display:inline-block"></span>TikTok Shop</div>
+        </div>
+        <p style="font-size:.72rem;color:var(--color-text-muted);margin-top:.75rem;line-height:1.5">Last-click overstates Meta by 19%. Data-driven attribution shows TikTok's true assist value — driving a smarter reallocation decision.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+  SLIDE 5 — 90-DAY PLAN + CTA
+═══════════════════════════════════════════════ -->
+<div class="slide" data-slide="5">
+  <div class="gradient-mesh">
+    <div class="blob" style="width:480px;height:480px;top:-120px;right:-100px;background:var(--color-accent-1);opacity:.13"></div>
+    <div class="blob" style="width:280px;height:280px;bottom:-70px;left:-50px;background:var(--color-accent-2);opacity:.09"></div>
+    <div class="blob" style="width:160px;height:160px;top:50%;left:25%;background:var(--color-accent-3);opacity:.07"></div>
+  </div>
+  <canvas class="particle-canvas" id="pc5"></canvas>
+  <div class="content">
+    <div class="label reveal" style="margin-bottom:.6rem">90-Day Game Plan for JBL.com</div>
+    <div style="display:grid;grid-template-columns:1.3fr 1fr;gap:1.8rem;align-items:start">
+      <div>
+        <h2 class="reveal" style="font-family:var(--font-display);font-size:clamp(1.5rem,3vw,2.4rem);margin-bottom:1.4rem">Here's exactly <span class="grad-text">what I'd do</span></h2>
+        <div class="reveal prog-track">
+          <div class="prog-node">
+            <div style="font-size:.7rem;font-weight:700;color:var(--color-accent-1);margin-bottom:.2rem">DAYS 1–30 · AUDIT & BASELINE</div>
+            <p style="font-size:.8rem;color:var(--color-text-secondary);line-height:1.55">Full audit of JBL.com pixel, UTM taxonomy, and attribution setup. Establish weekly KPI dashboard in Looker Studio. Map current Google Ads + Meta + TikTok campaign structures and identify waste.</p>
+          </div>
+          <div class="prog-node">
+            <div style="font-size:.7rem;font-weight:700;color:var(--color-accent-2);margin-bottom:.2rem">DAYS 31–60 · OPTIMIZE & TEST</div>
+            <p style="font-size:.8rem;color:var(--color-text-secondary);line-height:1.55">Deploy data-driven attribution model. Launch TikTok Video Shopping Ads test for Clip 4 + Flip 6. Optimize Google Shopping bids by product margin. Cut underperforming Meta broad prospecting — reallocate to TikTok scale.</p>
+          </div>
+          <div class="prog-node" style="margin-bottom:0">
+            <div style="font-size:.7rem;font-weight:700;color:var(--color-accent-3);margin-bottom:.2rem">DAYS 61–90 · REPORT & SCALE</div>
+            <p style="font-size:.8rem;color:var(--color-text-secondary);line-height:1.55">Present full multi-channel attribution findings to the org. Recommend Q2 budget allocation based on DDA signals. Project: blended ROAS from baseline → 4.1× with same total spend.</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="reveal glass" style="padding:1.3rem;margin-bottom:1rem;border-color:rgba(255,77,0,.25)">
+          <div class="label" style="margin-bottom:.8rem;color:var(--color-accent-1)">Platform Coverage</div>
+          <div style="display:flex;flex-direction:column;gap:.65rem">
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:.3rem"><span style="font-size:.8rem;font-weight:600;color:var(--color-google)">Google Ads</span><span style="font-size:.75rem;color:var(--color-text-muted)">Shopping + PMax + Search</span></div>
+              <div class="bar-track" style="height:6px"><div class="bar-fill" data-w="90" style="background:var(--color-google)"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:.3rem"><span style="font-size:.8rem;font-weight:600;color:var(--color-meta)">Meta Ads</span><span style="font-size:.75rem;color:var(--color-text-muted)">Retargeting + Lookalike</span></div>
+              <div class="bar-track" style="height:6px"><div class="bar-fill" data-w="78" style="background:var(--color-meta)"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:.3rem"><span style="font-size:.8rem;font-weight:600;color:var(--color-tiktok)">TikTok Shop</span><span style="font-size:.75rem;color:var(--color-text-muted)">Video Shopping Ads</span></div>
+              <div class="bar-track" style="height:6px"><div class="bar-fill" data-w="65" style="background:var(--color-tiktok)"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:.3rem"><span style="font-size:.8rem;font-weight:600;color:var(--color-accent-3)">Amazon Ads</span><span style="font-size:.75rem;color:var(--color-text-muted)">Sponsored + DSP test</span></div>
+              <div class="bar-track" style="height:6px"><div class="bar-fill" data-w="50" style="background:var(--color-accent-3)"></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="reveal glass" style="padding:1.2rem;text-align:center;border-color:rgba(255,77,0,.3)">
+          <div class="label" style="margin-bottom:.5rem;letter-spacing:.1em">Let's talk</div>
+          <div style="font-family:var(--font-display);font-size:1.05rem;margin-bottom:.4rem" class="grad-text">Sarjil Shah</div>
+          <div style="font-size:.78rem;color:var(--color-text-muted);line-height:1.7">shahsarjil901@gmail.com<br>(650) 720-2228<br>linkedin.com/in/sarjilshah</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /deck -->
+
+<!-- NAVIGATION -->
+<div class="nav-controls">
+  <button class="nav-btn" onclick="changeSlide(-1)">&#8249;</button>
+  <div class="slide-dots" id="dots"></div>
+  <button class="nav-btn" onclick="changeSlide(1)">&#8250;</button>
+  <span class="slide-counter" id="counter">1 / 5</span>
+</div>
+
+<script>
+/* ── DECK NAV ── */
+let current=1;
+const total=document.querySelectorAll('.slide').length;
+const dotsEl=document.getElementById('dots'),counterEl=document.getElementById('counter');
+for(let i=1;i<=total;i++){const d=document.createElement('div');d.className='dot'+(i===1?' active':'');d.onclick=()=>goToSlide(i);dotsEl.appendChild(d);}
+function goToSlide(n){
+  document.querySelector('.slide.active')?.classList.remove('active');
+  const next=document.querySelector(`.slide[data-slide="${n}"]`);
+  next?.classList.add('active');
+  animateSlide(next);
+  current=n;updateNav();
+}
+function changeSlide(d){let n=current+d;if(n<1)n=total;if(n>total)n=1;goToSlide(n);}
+function updateNav(){document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i+1===current));counterEl.textContent=current+' / '+total;}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();changeSlide(1);}if(e.key==='ArrowLeft'){e.preventDefault();changeSlide(-1);}});
+let touchX=0;
+document.addEventListener('touchstart',e=>{touchX=e.touches[0].clientX;});
+document.addEventListener('touchend',e=>{const d=touchX-e.changedTouches[0].clientX;if(Math.abs(d)>50)changeSlide(d>0?1:-1);});
+
+/* ── REVEAL ── */
+function animateSlide(slide){
+  if(!slide)return;
+  slide.querySelectorAll('.reveal').forEach((el,i)=>{
+    el.style.transition='none';el.style.opacity='0';el.style.transform='translateY(18px)';
+    el.offsetHeight;
+    const delay=i*0.075;
+    el.style.transition=`opacity .4s ease ${delay}s,transform .4s ease ${delay}s`;
+    el.style.opacity='1';el.style.transform='translateY(0)';
+  });
+  animateEffects(slide);
+}
+
+function animateEffects(slide){
+  /* counters */
+  slide.querySelectorAll('[data-count]:not(.counted)').forEach(el=>{
+    el.classList.add('counted');
+    const target=parseFloat(el.dataset.count),suffix=el.dataset.suffix||'',prefix=el.dataset.prefix||'';
+    let cur=0,step=target/45;
+    const t=setInterval(()=>{cur+=step;if(cur>=target){cur=target;clearInterval(t);}el.textContent=prefix+Math.round(cur)+suffix;},28);
+  });
+  /* bar fills */
+  slide.querySelectorAll('.bar-fill:not(.fill-init)').forEach((b,i)=>{
+    b.classList.add('fill-init');
+    b.style.width='0%';b.style.transition=`width .7s cubic-bezier(.16,1,.3,1) ${i*.1}s`;
+    b.offsetHeight;b.style.width=b.getAttribute('data-w')+'%';
+  });
+  /* stat counters on slide 4 */
+  if(slide.getAttribute('data-slide')==='4'){
+    animateStatStr(document.getElementById('s-roas'),'2.8×',900);
+    animateStatStr(document.getElementById('s-rev'),'43%',1100);
+    animateStatStr(document.getElementById('s-attr'),'98%',1300);
+    animateStatStr(document.getElementById('s-cpa'),'19%',900);
+    animateStatStr(document.getElementById('s-eff'),'22%',1100);
+    initAttrChart();
+  }
+}
+
+function animateStatStr(el,final,dur){
+  if(!el)return;
+  const start=performance.now();
+  const num=parseFloat(final);
+  const suffix=final.replace(/[\d.]/g,'');
+  (function step(now){
+    const p=Math.min((now-start)/dur,1),ease=1-Math.pow(1-p,3),v=Math.round(num*ease*10)/10;
+    el.textContent=(Number.isInteger(v)?v:v.toFixed(1))+suffix;
+    if(p<1)requestAnimationFrame(step);
+  })(start);
+}
+
+/* ── CHART ── */
+let attrChart=null;
+function initAttrChart(){
+  const ctx=document.getElementById('attrChart');
+  if(!ctx||attrChart)return;
+  const isDark=true;
+  attrChart=new Chart(ctx,{
+    type:'bar',
+    data:{
+      labels:['Last-Click','Linear','Data-Driven'],
+      datasets:[
+        {label:'Google Ads',data:[62,48,54],backgroundColor:'rgba(78,155,255,.8)',borderRadius:5},
+        {label:'Meta Ads',data:[25,32,26],backgroundColor:'rgba(91,139,245,.8)',borderRadius:5},
+        {label:'TikTok Shop',data:[13,20,20],backgroundColor:'rgba(255,77,114,.8)',borderRadius:5}
+      ]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{backgroundColor:'#1c1b19',titleColor:'#f0ede8',bodyColor:'#706c66',borderColor:'rgba(255,255,255,.09)',borderWidth:1,padding:10,cornerRadius:8,callbacks:{label:ctx=>' '+ctx.dataset.label+': '+ctx.raw+'%'}}},
+      scales:{
+        x:{stacked:true,grid:{color:'rgba(255,255,255,.05)'},ticks:{color:'#706c66',font:{size:11}}},
+        y:{stacked:true,max:100,grid:{color:'rgba(255,255,255,.05)'},ticks:{color:'#706c66',font:{size:10},callback:v=>v+'%'}}
+      }
+    }
+  });
+}
+
+/* ── PARTICLES ── */
+function initParticles(canvas,count,interactive){
+  if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  canvas.width=canvas.offsetWidth;canvas.height=canvas.offsetHeight;
+  let mx=-1000,my=-1000;
+  const particles=Array.from({length:count},()=>({
+    x:Math.random()*canvas.width,y:Math.random()*canvas.height,
+    vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,
+    size:Math.random()*2+.8,alpha:Math.random()*.3+.1
+  }));
+  if(interactive){
+    canvas.addEventListener('mousemove',e=>{const r=canvas.getBoundingClientRect();mx=e.clientX-r.left;my=e.clientY-r.top;});
+    canvas.addEventListener('mouseleave',()=>{mx=-1000;my=-1000;});
+  }
+  (function animate(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p=>{
+      if(interactive){const dx=p.x-mx,dy=p.y-my,dist=Math.sqrt(dx*dx+dy*dy);if(dist<120){const f=(120-dist)/120*2;p.vx+=(dx/dist)*f*.1;p.vy+=(dy/dist)*f*.1;}}
+      p.vx*=.98;p.vy*=.98;p.x+=p.vx;p.y+=p.vy;
+      if(p.x<0)p.x=canvas.width;if(p.x>canvas.width)p.x=0;
+      if(p.y<0)p.y=canvas.height;if(p.y>canvas.height)p.y=0;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+      ctx.fillStyle=`rgba(255,77,0,${p.alpha})`;ctx.fill();
+    });
+    requestAnimationFrame(animate);
+  })();
+}
+initParticles(document.getElementById('pc1'),55,true);
+initParticles(document.getElementById('pc5'),30,true);
+
+/* ── MOUSE SPOTLIGHT ── */
+document.addEventListener('mousemove',e=>{
+  document.getElementById('spotlight').style.background=`radial-gradient(600px circle at ${e.clientX}px ${e.clientY}px,rgba(255,77,0,.05),transparent 40%)`;
+});
+
+/* ── INIT FIRST SLIDE ── */
+try{animateSlide(document.querySelector('.slide.active'));}catch(e){}
+</script>
+</body>
+</html>
