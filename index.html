@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sarjil Shah · Pomelo Care Application</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root {
+    --plum:        #3D1F4E;
+    --plum-mid:    #5A3070;
+    --plum-light:  #8A6FA8;
+    --peach:       #F4A97F;
+    --peach-light: #FDE8D8;
+    --cream:       #FAF6F1;
+    --sage:        #7A9E7E;
+    --sage-light:  #D8EAD9;
+    --white:       #FFFFFF;
+    --gray:        #6B6466;
+    --gray-light:  #EDE9E6;
+    --text-dark:   #1A0A24;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text-dark); min-height: 100vh; }
+
+  /* TOPBAR */
+  .topbar { background: var(--plum); padding: 0 2.5rem; display: flex; align-items: center; justify-content: space-between; height: 58px; position: sticky; top: 0; z-index: 100; }
+  .brand-lockup { display: flex; align-items: center; gap: 12px; }
+  .pomelo-mark { width: 34px; height: 34px; background: var(--peach); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .brand-text { font-family: 'Playfair Display', serif; font-size: 15px; color: var(--white); line-height: 1.2; }
+  .brand-text span { display: block; font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 400; color: var(--peach); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 1px; }
+  .nav-pills { display: flex; gap: 4px; }
+  .nav-pill { font-size: 12px; font-weight: 500; padding: 6px 16px; border-radius: 20px; border: none; cursor: pointer; background: transparent; color: rgba(255,255,255,0.55); transition: all 0.2s; }
+  .nav-pill:hover { color: var(--white); background: rgba(255,255,255,0.1); }
+  .nav-pill.active { background: var(--peach); color: var(--plum); font-weight: 600; }
+
+  /* HERO */
+  .hero { background: var(--plum); padding: 3.5rem 2.5rem 3rem; position: relative; overflow: hidden; }
+  .hero-blob { position: absolute; border-radius: 50%; pointer-events: none; }
+  .hero-blob-1 { width: 300px; height: 300px; background: rgba(244,169,127,0.1); right: -60px; top: -80px; }
+  .hero-blob-2 { width: 160px; height: 160px; background: rgba(122,158,126,0.1); right: 140px; bottom: -40px; }
+  .hero-inner { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: end; position: relative; }
+  .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--peach); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .hero-eyebrow::before { content: ''; display: inline-block; width: 20px; height: 1px; background: var(--peach); opacity: 0.6; }
+  .hero-name { font-family: 'Playfair Display', serif; font-size: 48px; color: var(--white); line-height: 1.05; margin-bottom: 12px; }
+  .hero-role { font-size: 15px; font-weight: 300; color: rgba(255,255,255,0.65); margin-bottom: 22px; line-height: 1.6; }
+  .hero-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+  .hero-tag { font-size: 11px; padding: 5px 13px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.06); }
+  .hero-contact { text-align: right; font-size: 13px; color: rgba(255,255,255,0.5); line-height: 2.2; }
+  .hero-contact a { color: var(--peach); text-decoration: none; font-weight: 500; }
+
+  /* MISSION STRIP */
+  .mission-strip { background: var(--peach-light); border-bottom: 1px solid rgba(244,169,127,0.3); padding: 14px 2.5rem; }
+  .mission-inner { max-width: 960px; margin: 0 auto; font-size: 13px; color: var(--plum); line-height: 1.6; font-style: italic; }
+  .mission-inner strong { font-style: normal; font-weight: 600; }
+
+  /* STAT STRIP */
+  .stat-strip { background: var(--white); border-bottom: 1px solid var(--gray-light); }
+  .stat-strip-inner { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); }
+  .stat-block { padding: 1.25rem 1.5rem; border-right: 1px solid var(--gray-light); transition: background 0.2s; }
+  .stat-block:last-child { border-right: none; }
+  .stat-block:hover { background: var(--cream); }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 30px; color: var(--plum); line-height: 1; margin-bottom: 4px; }
+  .stat-lbl { font-size: 11px; font-weight: 500; color: var(--gray); text-transform: uppercase; letter-spacing: 0.06em; line-height: 1.4; }
+
+  /* MAIN */
+  .main { max-width: 960px; margin: 0 auto; padding: 2.5rem; }
+  .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 1.5rem; }
+  .section-rule { flex: 1; height: 1px; background: var(--gray-light); }
+  .section-label { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--plum-mid); }
+
+  /* SKILLS */
+  .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 2.5rem; }
+  .skill-card { background: var(--white); border: 1px solid var(--gray-light); border-radius: 14px; padding: 20px 22px; cursor: pointer; transition: all 0.2s; position: relative; overflow: hidden; }
+  .skill-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--plum-mid); border-radius: 14px 0 0 14px; }
+  .skill-card.peach::before { background: var(--peach); }
+  .skill-card.sage::before  { background: var(--sage); }
+  .skill-card:hover { border-color: var(--plum-light); box-shadow: 0 4px 24px rgba(61,31,78,0.1); transform: translateY(-2px); }
+  .skill-card.peach:hover { border-color: var(--peach); box-shadow: 0 4px 24px rgba(244,169,127,0.2); }
+  .skill-card.sage:hover { border-color: var(--sage); box-shadow: 0 4px 24px rgba(122,158,126,0.2); }
+  .skill-card.full { grid-column: 1 / -1; }
+  .skill-title { font-size: 14px; font-weight: 600; color: var(--text-dark); margin-bottom: 6px; }
+  .skill-detail { font-size: 12px; color: var(--gray); line-height: 1.6; margin-bottom: 12px; }
+  .pill-row { display: flex; flex-wrap: wrap; gap: 5px; }
+  .pill { font-size: 10px; font-weight: 500; padding: 3px 10px; border-radius: 20px; background: var(--cream); color: var(--plum); border: 1px solid var(--gray-light); }
+  .pill.plum  { background: #EDE5F5; border-color: #C9B2E0; color: var(--plum); }
+  .pill.peach { background: var(--peach-light); border-color: #F4C9AA; color: #7A3A10; }
+  .pill.sage  { background: var(--sage-light); border-color: #B0CEB2; color: #2F5732; }
+
+  /* CHARTS */
+  .charts-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 2.5rem; }
+  .chart-card { background: var(--white); border: 1px solid var(--gray-light); border-radius: 14px; padding: 20px 22px; }
+  .chart-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--plum-mid); margin-bottom: 16px; }
+  .chart-wrap { position: relative; height: 180px; }
+
+  /* TOOLS GRID */
+  .tools-section { margin-bottom: 2.5rem; }
+  .tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .tool-card { background: var(--white); border: 1px solid var(--gray-light); border-radius: 12px; padding: 16px 18px; }
+  .tool-category { font-size: 10px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--plum-light); margin-bottom: 10px; }
+  .tool-list { display: flex; flex-direction: column; gap: 6px; }
+  .tool-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-dark); }
+  .tool-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .tool-dot.plum  { background: var(--plum-mid); }
+  .tool-dot.peach { background: var(--peach); }
+  .tool-dot.sage  { background: var(--sage); }
+
+  /* TIMELINE */
+  .timeline-section { margin-bottom: 2.5rem; }
+  .timeline { position: relative; padding-left: 26px; }
+  .tl-spine { position: absolute; left: 9px; top: 10px; bottom: 10px; width: 2px; background: linear-gradient(to bottom, var(--plum-mid), var(--plum-light), var(--gray-light)); border-radius: 2px; }
+  .tl-item { position: relative; margin-bottom: 14px; animation: fadeUp 0.35s ease both; }
+  @keyframes fadeUp { from { opacity:0; transform: translateY(10px); } to { opacity:1; transform: translateY(0); } }
+  .tl-dot { position: absolute; left: -21px; top: 18px; width: 12px; height: 12px; border-radius: 50%; background: var(--plum-mid); border: 2px solid var(--cream); box-shadow: 0 0 0 2px var(--plum-mid); }
+  .tl-dot.peach { background: var(--peach); box-shadow: 0 0 0 2px var(--peach); }
+  .tl-dot.sage  { background: var(--sage); box-shadow: 0 0 0 2px var(--sage); }
+  .tl-card { background: var(--white); border: 1px solid var(--gray-light); border-radius: 12px; padding: 18px 20px; transition: all 0.2s; }
+  .tl-card:hover { border-color: var(--plum-light); box-shadow: 0 2px 16px rgba(61,31,78,0.08); }
+  .tl-head { font-size: 14px; font-weight: 600; color: var(--text-dark); margin-bottom: 3px; }
+  .tl-org { font-size: 12px; color: var(--plum-mid); font-weight: 500; margin-bottom: 10px; }
+  .tl-impact { font-size: 12px; color: var(--gray); line-height: 1.65; margin-bottom: 10px; }
+  .badge { font-size: 10px; font-weight: 600; padding: 3px 10px; border-radius: 20px; letter-spacing: 0.04em; text-transform: uppercase; }
+  .badge-plum  { background: #EDE5F5; color: var(--plum); }
+  .badge-peach { background: var(--peach-light); color: #7A3A10; }
+  .badge-sage  { background: var(--sage-light); color: #2F5732; }
+
+  /* RESULTS TABS */
+  .tab-group { background: var(--white); border: 1px solid var(--gray-light); border-radius: 14px; overflow: hidden; margin-bottom: 2.5rem; }
+  .tab-bar { display: flex; border-bottom: 1px solid var(--gray-light); background: var(--cream); }
+  .tab-btn { flex: 1; font-size: 11px; font-weight: 500; padding: 13px 6px; border: none; background: transparent; color: var(--gray); cursor: pointer; transition: all 0.2s; border-bottom: 2px solid transparent; text-align: center; }
+  .tab-btn:hover { color: var(--plum); }
+  .tab-btn.active { color: var(--plum); border-bottom-color: var(--plum-mid); background: var(--white); font-weight: 600; }
+  .tab-content { padding: 22px; display: none; }
+  .tab-content.active { display: block; }
+  .tab-body { font-size: 13px; color: var(--gray); line-height: 1.75; margin-bottom: 16px; }
+  .outcome-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .outcome-chip { font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 8px; background: var(--cream); color: var(--plum); border: 1px solid var(--gray-light); }
+  .outcome-chip.highlight { background: var(--peach-light); border-color: #F4C9AA; color: #7A3A10; }
+
+  /* MISSION CARD */
+  .mission-card { background: var(--plum); border-radius: 14px; padding: 28px 30px; margin-bottom: 2.5rem; position: relative; overflow: hidden; }
+  .mission-card::after { content: ''; position: absolute; right: -40px; bottom: -40px; width: 180px; height: 180px; border-radius: 50%; background: rgba(244,169,127,0.1); pointer-events: none; }
+  .mc-label { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--peach); margin-bottom: 10px; }
+  .mc-title { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--white); margin-bottom: 14px; line-height: 1.3; }
+  .mc-body { font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.75; max-width: 680px; }
+
+  /* CTA CARD */
+  .cta-card { background: var(--white); border: 1px solid var(--gray-light); border-radius: 14px; padding: 28px 30px; margin-bottom: 2.5rem; display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center; }
+  .cta-label { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--plum-mid); margin-bottom: 8px; }
+  .cta-title { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--text-dark); margin-bottom: 10px; }
+  .cta-body { font-size: 13px; color: var(--gray); line-height: 1.7; }
+  .cta-buttons { display: flex; flex-direction: column; gap: 10px; align-items: flex-end; }
+  .cta-btn { display: inline-block; font-size: 13px; font-weight: 600; padding: 10px 22px; border-radius: 8px; text-decoration: none; text-align: center; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
+  .cta-btn.primary { background: var(--plum); color: var(--white); border: none; }
+  .cta-btn.primary:hover { background: var(--plum-mid); }
+  .cta-btn.secondary { background: transparent; color: var(--plum); border: 1px solid var(--plum-light); }
+  .cta-btn.secondary:hover { background: var(--cream); }
+
+  /* PANEL */
+  .detail-panel { position: fixed; inset: 0; background: rgba(29,10,40,0.6); z-index: 200; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+  .detail-panel.open { opacity: 1; pointer-events: all; }
+  .panel-box { background: var(--white); border-radius: 18px; width: 90%; max-width: 520px; padding: 32px; transform: translateY(20px); transition: transform 0.25s; position: relative; }
+  .detail-panel.open .panel-box { transform: translateY(0); }
+  .panel-close { position: absolute; top: 18px; right: 18px; background: var(--cream); border: none; width: 30px; height: 30px; border-radius: 50%; font-size: 14px; cursor: pointer; color: var(--gray); display: flex; align-items: center; justify-content: center; }
+  .panel-close:hover { background: var(--gray-light); }
+  .panel-tag { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--plum-mid); margin-bottom: 8px; }
+  .panel-title { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--text-dark); margin-bottom: 14px; line-height: 1.3; }
+  .panel-body { font-size: 13px; color: var(--gray); line-height: 1.75; margin-bottom: 20px; }
+  .panel-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .pstat { background: var(--cream); border-radius: 10px; padding: 14px; text-align: center; }
+  .pstat-num { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--plum); line-height: 1; }
+  .pstat-lbl { font-size: 10px; color: var(--gray); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px; line-height: 1.3; }
+
+  /* FOOTER */
+  .footer { background: var(--plum); color: rgba(255,255,255,0.4); text-align: center; padding: 1.75rem; font-size: 12px; letter-spacing: 0.04em; line-height: 2; }
+  .footer strong { color: var(--peach); font-weight: 500; }
+  .footer a { color: var(--peach); text-decoration: none; }
+
+  @media (max-width: 640px) {
+    .hero-inner, .cta-card { grid-template-columns: 1fr; }
+    .hero-contact { text-align: left; }
+    .cta-buttons { align-items: flex-start; flex-direction: row; }
+    .stat-strip-inner, .skills-grid, .charts-row, .tools-grid { grid-template-columns: 1fr; }
+    .stat-strip-inner { grid-template-columns: repeat(2, 1fr); }
+    .hero-name { font-size: 34px; }
+    .main, .topbar, .hero, .mission-strip { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .skill-card.full { grid-column: 1; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <div class="brand-lockup">
+    <div class="pomelo-mark">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <circle cx="10" cy="10" r="5.5" fill="#3D1F4E"/>
+        <circle cx="10" cy="10" r="8" stroke="#3D1F4E" stroke-width="1.5" fill="none"/>
+        <line x1="10" y1="1" x2="10" y2="0" stroke="#3D1F4E" stroke-width="2" stroke-linecap="round"/>
+        <line x1="10" y1="19" x2="10" y2="20" stroke="#3D1F4E" stroke-width="2" stroke-linecap="round"/>
+        <line x1="1" y1="10" x2="0" y2="10" stroke="#3D1F4E" stroke-width="2" stroke-linecap="round"/>
+        <line x1="19" y1="10" x2="20" y2="10" stroke="#3D1F4E" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="brand-text">
+      Sarjil Shah
+      <span>For Pomelo Care</span>
+    </div>
+  </div>
+  <div class="nav-pills">
+    <button class="nav-pill active" onclick="navTo('overview-anchor', this)">Overview</button>
+    <button class="nav-pill" onclick="navTo('experience-anchor', this)">Experience</button>
+    <button class="nav-pill" onclick="navTo('results-anchor', this)">Results</button>
+    <button class="nav-pill" onclick="navTo('contact-anchor', this)">Contact</button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-blob hero-blob-1"></div>
+  <div class="hero-blob hero-blob-2"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">Performance Marketing · Application</div>
+      <h1 class="hero-name">Sarjil Shah</h1>
+      <p class="hero-role">M.Sc. Marketing · UT Dallas<br>3+ years driving paid media, analytics and demand generation</p>
+      <div class="hero-tags">
+        <span class="hero-tag">Google Ads · Meta Ads</span>
+        <span class="hero-tag">GA4 · Looker Studio</span>
+        <span class="hero-tag">Pixel and Tag Audits</span>
+        <span class="hero-tag">A/B Testing</span>
+        <span class="hero-tag">Series C ready</span>
+      </div>
+    </div>
+    <div class="hero-contact">
+      <a href="mailto:shahsarjil901@gmail.com">shahsarjil901@gmail.com</a><br>
+      <span>(650) 720-2228</span><br>
+      <span style="font-size:11px; color:rgba(255,255,255,0.3); margin-top:4px; display:block;">Available immediately</span>
+    </div>
+  </div>
+</section>
+
+<div class="mission-strip">
+  <div class="mission-inner">
+    <strong>Why Pomelo Care:</strong> I believe in what you are building. Using data and 24/7 virtual care to close the gaps that cost families the most is the kind of mission I want to attach my work to. I want to be the person running the demand engine that gets Pomelo in front of more employers, payers, and the families who need it most.
+  </div>
+</div>
+
+<div class="stat-strip">
+  <div class="stat-strip-inner">
+    <div class="stat-block">
+      <div class="stat-num" id="s43">0%</div>
+      <div class="stat-lbl">Search traffic lifted</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-num" id="s38">0%</div>
+      <div class="stat-lbl">Reporting accuracy gained</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-num" id="s22">0%</div>
+      <div class="stat-lbl">Conversion rate improved</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-num" id="s31">0%</div>
+      <div class="stat-lbl">Ad spend waste cut</div>
+    </div>
+  </div>
+</div>
+
+<main class="main">
+
+  <div id="overview-anchor" style="scroll-margin-top: 70px;"></div>
+
+  <div class="section-header">
+    <span class="section-label">Five reasons I fit</span>
+    <div class="section-rule"></div>
+    <span style="font-size:11px; color:var(--gray);">click any card to expand</span>
+  </div>
+
+  <div class="skills-grid">
+    <div class="skill-card" onclick="openPanel('paid')">
+      <div class="skill-title">Hands-on performance marketing</div>
+      <div class="skill-detail">I run Google Ads and Meta Ads campaigns end to end. From audience segmentation and bid strategy through to daily KPI tracking against CPM, CPA, CPC, and CTR. I do not just monitor campaigns; I own them.</div>
+      <div class="pill-row">
+        <span class="pill plum">Google Ads</span>
+        <span class="pill plum">Meta Ads</span>
+        <span class="pill plum">Bing Ads</span>
+        <span class="pill">Lead gen</span>
+      </div>
+    </div>
+    <div class="skill-card" onclick="openPanel('analytics')">
+      <div class="skill-title">Analytics, tracking and data integrity</div>
+      <div class="skill-detail">I have maintained 100% attribution accuracy across paid platforms by running pixel audits, fixing UTM structures, and validating conversion event firing. I make sure the data is trustworthy before making any decision on it.</div>
+      <div class="pill-row">
+        <span class="pill plum">GA4</span>
+        <span class="pill plum">Looker Studio</span>
+        <span class="pill">GTM</span>
+        <span class="pill">Pixel audits</span>
+      </div>
+    </div>
+    <div class="skill-card peach" onclick="openPanel('testing')">
+      <div class="skill-title">A/B testing and creative iteration</div>
+      <div class="skill-detail">I run structured A/B tests on ad headlines, descriptions, and landing page CTAs. Not one-off experiments but systematic cycles where each result feeds directly into the next iteration and drove a 19% increase in qualified conversions.</div>
+      <div class="pill-row">
+        <span class="pill peach">A/B testing</span>
+        <span class="pill peach">CRO</span>
+        <span class="pill peach">Creative strategy</span>
+      </div>
+    </div>
+    <div class="skill-card sage" onclick="openPanel('startup')">
+      <div class="skill-title">Fast-paced and mission-driven fit</div>
+      <div class="skill-detail">I have operated across consulting, internships, specialist roles, and a TA position at the same time. I adapt fast, self-teach tools, and deliver without waiting for someone to hand me a playbook.</div>
+      <div class="pill-row">
+        <span class="pill sage">Self-directed</span>
+        <span class="pill sage">Startup pace</span>
+        <span class="pill sage">AI automation</span>
+      </div>
+    </div>
+    <div class="skill-card full" onclick="openPanel('comms')">
+      <div class="skill-title">Impact narrative and stakeholder communication</div>
+      <div class="skill-detail">I frame my work in outcomes, not activity. I have translated complex campaign analytics into executive-level presentations that directly influenced a 31% improvement in media spend efficiency. At a mission-driven company like Pomelo, I know how to connect paid media results to the bigger picture: more families reached and better outcomes driven.</div>
+      <div class="pill-row">
+        <span class="pill plum">Executive reporting</span>
+        <span class="pill plum">Pipeline narrative</span>
+        <span class="pill">Cross-functional collab</span>
+        <span class="pill">UT Dallas TA</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <span class="section-label">Performance snapshot</span>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="charts-row">
+    <div class="chart-card">
+      <div class="chart-title">Key campaign outcomes</div>
+      <div class="chart-wrap"><canvas id="barChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Skill coverage · demand gen focus</div>
+      <div class="chart-wrap"><canvas id="radarChart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="section-header tools-section">
+    <span class="section-label">Tools I work in every day</span>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="tools-grid" style="margin-bottom: 2.5rem;">
+    <div class="tool-card">
+      <div class="tool-category">Paid media</div>
+      <div class="tool-list">
+        <div class="tool-item"><span class="tool-dot plum"></span>Google Ads</div>
+        <div class="tool-item"><span class="tool-dot plum"></span>Meta Ads Manager</div>
+        <div class="tool-item"><span class="tool-dot plum"></span>Bing Ads</div>
+        <div class="tool-item"><span class="tool-dot plum"></span>Google Search Console</div>
+      </div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-category">Analytics and reporting</div>
+      <div class="tool-list">
+        <div class="tool-item"><span class="tool-dot peach"></span>Google Analytics 4</div>
+        <div class="tool-item"><span class="tool-dot peach"></span>Looker Studio</div>
+        <div class="tool-item"><span class="tool-dot peach"></span>SimilarWeb</div>
+        <div class="tool-item"><span class="tool-dot peach"></span>Ahrefs</div>
+      </div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-category">Tracking and optimization</div>
+      <div class="tool-list">
+        <div class="tool-item"><span class="tool-dot sage"></span>Google Tag Manager</div>
+        <div class="tool-item"><span class="tool-dot sage"></span>Meta Pixel</div>
+        <div class="tool-item"><span class="tool-dot sage"></span>UTM frameworks</div>
+        <div class="tool-item"><span class="tool-dot sage"></span>AI workflow automation</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="experience-anchor" style="scroll-margin-top: 70px;"></div>
+
+  <div class="section-header">
+    <span class="section-label">How I built these skills</span>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="timeline-section">
+    <div class="timeline">
+      <div class="tl-spine"></div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-head">Drove 43% search traffic growth through full SEM management</div>
+          <div class="tl-org">Community Dreams Foundation · Jun 2025 to Oct 2025</div>
+          <div class="tl-impact">I built daily and weekly monitoring workflows using Search Console, Ahrefs, Google Ads, and Bing Ads. By tracking keyword rankings and optimizing spend pacing continuously, I improved search traffic acquisition by 43% and cut wasted ad spend by 31%.</div>
+          <span class="badge badge-plum">Performance marketing</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-head">Rebuilt reporting infrastructure and hit 38% accuracy improvement</div>
+          <div class="tl-org">Community Dreams Foundation · Jun 2025 to Oct 2025</div>
+          <div class="tl-impact">I rebuilt dashboards integrating GA4, Google Ads, and SimilarWeb and then ran tracking audits to clean up data integrity issues. Leadership got real-time visibility and reporting accuracy improved by 38%. I also assembled monthly performance reports covering all wins and gaps across SEM and paid social.</div>
+          <span class="badge badge-plum">Analytics and reporting</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot peach"></div>
+        <div class="tl-card">
+          <div class="tl-head">Ran A/B testing cycles that lifted conversion rate by 22%</div>
+          <div class="tl-org">Community Dreams Foundation · Jun 2025 to Oct 2025</div>
+          <div class="tl-impact">I participated in A/B testing cycles across paid channels that improved conversion rates by 22%. Each test informed the next. Not a one-off experiment but a structured iteration loop tied directly to real acquisition goals.</div>
+          <span class="badge badge-peach">A/B testing</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-head">Managed paid media across 3 client accounts and improved efficiency by 22%</div>
+          <div class="tl-org">SmartData Solutions · Jul 2024 to Aug 2024</div>
+          <div class="tl-impact">I executed paid acquisition campaigns across Google Ads and Meta Ads and delivered weekly KPI reports tracking CPM, CPA, CPC, and CTR. I improved campaign efficiency by 22% and reduced cost per acquisition by 19%. I also validated pixel and conversion event firing across both platforms and maintained 100% attribution accuracy throughout.</div>
+          <span class="badge badge-plum">Performance marketing</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-head">Grew ROAS from 0.8x to 2.2x through Google Ads campaign ownership</div>
+          <div class="tl-org">Prembhav Industries · May 2020 to May 2022</div>
+          <div class="tl-impact">I managed Google Ads search campaigns end to end across 3 product lines and used audience segmentation and bid strategy refinement to drive 18% year over year revenue growth and improve ROAS from 0.8x to 2.2x in 4 months. I also ran systematic A/B tests on headlines, descriptions, and landing page CTAs that drove 19% more qualified conversions and a 12% CPA reduction over 12 months.</div>
+          <span class="badge badge-plum">Performance marketing</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-head">Eliminated attribution errors across all active accounts</div>
+          <div class="tl-org">Prembhav Industries · May 2020 to May 2022</div>
+          <div class="tl-impact">I troubleshot pixel tracking, UTM structures, and tagging frameworks across Google Ads and Meta Ads and eliminated cross-platform discrepancies while maintaining 100% attribution accuracy. I then translated the campaign analytics into executive-level presentations that influenced a 31% improvement in media spend efficiency.</div>
+          <span class="badge badge-plum">Data integrity</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot sage"></div>
+        <div class="tl-card">
+          <div class="tl-head">Taught analytics and marketing strategy as TA at UT Dallas</div>
+          <div class="tl-org">University of Texas at Dallas · Aug 2023 to Dec 2024</div>
+          <div class="tl-impact">I taught Google Analytics, marketing automation, Adobe Creative Suite, WordPress, e-commerce marketing, and budget management. This reinforced my own depth and proved I can onboard others fast, which matters in a startup environment where I may need to bring new teammates or stakeholders up to speed quickly.</div>
+          <span class="badge badge-sage">Startup fit</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="mission-card">
+    <div class="mc-label">Mission alignment</div>
+    <div class="mc-title">I care about what Pomelo is building and I want to help more families find it.</div>
+    <div class="mc-body">Pomelo is proving that proactive, data-driven care leads to better outcomes for women and children. That mission deserves a demand engine that works. I want to be the person running paid channels that reach more employers, health plans, and ultimately the families who need this care. And I want to measure success in pipeline and patient outcomes, not just impressions.</div>
+  </div>
+
+  <div id="results-anchor" style="scroll-margin-top: 70px;"></div>
+
+  <div class="section-header">
+    <span class="section-label">Results by strength</span>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="tab-group">
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab(this,'r1')">Paid media</button>
+      <button class="tab-btn" onclick="switchTab(this,'r2')">Analytics</button>
+      <button class="tab-btn" onclick="switchTab(this,'r3')">A/B testing</button>
+      <button class="tab-btn" onclick="switchTab(this,'r4')">Startup fit</button>
+      <button class="tab-btn" onclick="switchTab(this,'r5')">Communication</button>
+    </div>
+
+    <div id="r1" class="tab-content active">
+      <div class="tab-body">I ran Google Ads and Meta Ads campaigns across multiple client accounts and roles. I owned budget pacing, bid strategy, audience segmentation, and weekly KPI reporting at every step. At Community Dreams Foundation I drove a 43% increase in search traffic and cut wasted ad spend by 31%. At SmartData Solutions I improved campaign efficiency by 22% and reduced CPA by 19%. At Prembhav I took ROAS from 0.8x to 2.2x in four months.</div>
+      <div class="outcome-row">
+        <div class="outcome-chip highlight">+43% traffic lift</div>
+        <div class="outcome-chip highlight">ROAS 0.8x to 2.2x</div>
+        <div class="outcome-chip">31% wasted spend cut</div>
+        <div class="outcome-chip">19% CPA reduction</div>
+      </div>
+    </div>
+
+    <div id="r2" class="tab-content">
+      <div class="tab-body">I rebuilt dashboards from scratch, validated pixel and conversion event firing across Google Ads and Meta, and ran tagging audits to eliminate cross-platform discrepancies. I treat clean data as a prerequisite, not an afterthought. I maintained 100% attribution accuracy across all active accounts and improved reporting accuracy by 38% through the integrated GA4 dashboards I built at Community Dreams Foundation.</div>
+      <div class="outcome-row">
+        <div class="outcome-chip highlight">100% attribution accuracy</div>
+        <div class="outcome-chip highlight">+38% reporting accuracy</div>
+        <div class="outcome-chip">GA4, Ads, and SimilarWeb unified</div>
+      </div>
+    </div>
+
+    <div id="r3" class="tab-content">
+      <div class="tab-body">I ran systematic A/B tests on ad headlines, descriptions, and landing page CTAs, building a repeatable testing loop rather than one-off experiments. At Prembhav this drove a 19% increase in qualified conversions and a 12% CPA reduction over 12 months. At Community Dreams I participated in A/B testing cycles that improved conversion rates by 22%.</div>
+      <div class="outcome-row">
+        <div class="outcome-chip highlight">+19% qualified conversions</div>
+        <div class="outcome-chip highlight">+22% conversion rate</div>
+        <div class="outcome-chip">12% CPA reduction over 12 months</div>
+      </div>
+    </div>
+
+    <div id="r4" class="tab-content">
+      <div class="tab-body">I have never had a single-track career. I have juggled consulting, internship, specialist, and TA roles, learning tools on the fly and delivering without a set playbook. I used AI tools to automate campaign reporting workflows, freeing 8+ hours per week for strategic work. At a Series C startup where priorities shift fast, I do not need structure handed to me. I build it.</div>
+      <div class="outcome-row">
+        <div class="outcome-chip highlight">8+ hours per week saved via automation</div>
+        <div class="outcome-chip">Multiple parallel roles</div>
+        <div class="outcome-chip">Fast self-learner</div>
+      </div>
+    </div>
+
+    <div id="r5" class="tab-content">
+      <div class="tab-body">I have consistently translated complex analytics into clear, executive-level narratives. Not just reporting numbers but telling the story of what the data means for the business. At Prembhav this directly influenced a 31% improvement in media spend efficiency. At UT Dallas I explained marketing analytics to students, which means I can communicate the same ideas to non-technical stakeholders at Pomelo just as clearly.</div>
+      <div class="outcome-row">
+        <div class="outcome-chip highlight">+31% media spend efficiency</div>
+        <div class="outcome-chip">Executive-level presentations</div>
+        <div class="outcome-chip">UT Dallas TA · 2 years</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="contact-anchor" style="scroll-margin-top: 70px;"></div>
+
+  <div class="section-header">
+    <span class="section-label">Get in touch</span>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="cta-card">
+    <div>
+      <div class="cta-label">Ready to connect</div>
+      <div class="cta-title">I would love to talk about the role and what I can bring to Pomelo Care.</div>
+      <div class="cta-body">Whether you want to walk through my campaign work, dig into how I think about attribution, or just have a quick intro call, I am available and eager. I move fast and I am ready to start contributing from day one.</div>
+    </div>
+    <div class="cta-buttons">
+      <a class="cta-btn primary" href="mailto:shahsarjil901@gmail.com">Send me an email</a>
+      <a class="cta-btn secondary" href="tel:6507202228">Call (650) 720-2228</a>
+    </div>
+  </div>
+
+</main>
+
+<footer class="footer">
+  Prepared for <strong>Pomelo Care</strong> by Sarjil Shah<br>
+  <a href="mailto:shahsarjil901@gmail.com">shahsarjil901@gmail.com</a> &nbsp;·&nbsp; (650) 720-2228<br>
+  <span style="font-size:11px; color:rgba(255,255,255,0.25);">M.Sc. Marketing · University of Texas at Dallas</span>
+</footer>
+
+<div class="detail-panel" id="panel" onclick="closePanelBg(event)">
+  <div class="panel-box">
+    <button class="panel-close" onclick="closePanel()">✕</button>
+    <div class="panel-tag" id="panel-tag"></div>
+    <div class="panel-title" id="panel-title"></div>
+    <div class="panel-body" id="panel-body"></div>
+    <div class="panel-stats" id="panel-stats"></div>
+  </div>
+</div>
+
+<script>
+const panelData = {
+  paid: {
+    tag: 'Strength 01 · Performance Marketing',
+    title: 'I run campaigns end to end and I own the numbers',
+    body: 'Across three roles I managed Google Ads and Meta Ads from setup through to reporting. I built monitoring workflows, owned bid strategy and audience segmentation, and tracked CPM, CPA, CPC, and CTR weekly. At Community Dreams Foundation I drove a 43% traffic lift and cut wasted spend by 31%. At Prembhav I took ROAS from 0.8x to 2.2x in four months. At SmartData I improved CPA by 19%.',
+    stats: [{ n:'+43%', l:'Traffic lift' }, { n:'2.2x', l:'ROAS achieved' }, { n:'19%', l:'CPA reduction' }]
+  },
+  analytics: {
+    tag: 'Strength 02 · Analytics and Data Integrity',
+    title: 'Clean data first, then decisions',
+    body: 'I rebuilt dashboards integrating GA4, Google Ads, and SimilarWeb from scratch. I validated pixel and conversion event firing across both Google and Meta platforms and maintained 100% attribution accuracy. I ran tagging audits that eliminated cross-platform discrepancies across all active accounts. Reporting accuracy improved 38% through my infrastructure work at Community Dreams Foundation.',
+    stats: [{ n:'100%', l:'Attribution accuracy' }, { n:'+38%', l:'Reporting accuracy' }, { n:'3', l:'Platforms integrated' }]
+  },
+  testing: {
+    tag: 'Strength 03 · A/B Testing and Creative Iteration',
+    title: 'Systematic testing, not one-off guesses',
+    body: 'I ran A/B tests on ad headlines, descriptions, and landing page CTAs across 3 campaigns at Prembhav and drove a 19% increase in qualified conversions and 12% CPA reduction over 12 months. At Community Dreams I participated in testing cycles that improved conversion rates by 22%. I build testing loops where each result feeds the next iteration.',
+    stats: [{ n:'+19%', l:'Qualified conversions' }, { n:'+22%', l:'Conversion rate' }, { n:'12%', l:'CPA reduction' }]
+  },
+  startup: {
+    tag: 'Strength 04 · Startup Fit',
+    title: 'I build the playbook rather than wait for one',
+    body: 'I have operated across consulting, internship, specialist, and TA roles simultaneously while adapting to shifting priorities and limited structure. I used AI tools to automate campaign reporting workflows and freed 8+ hours per week for strategic work. At a Series C company where speed matters, I know how to prioritize, move fast, and deliver without hand-holding.',
+    stats: [{ n:'8+', l:'Hours saved weekly' }, { n:'3+', l:'Parallel roles' }, { n:'2020', l:'Started building' }]
+  },
+  comms: {
+    tag: 'Strength 05 · Communication and Mission Alignment',
+    title: 'I speak in outcomes and I care about this one',
+    body: 'I have translated complex analytics into executive presentations that directly influenced a 31% improvement in media spend decisions. I taught analytics at UT Dallas, which means I can explain paid media performance to non-technical stakeholders clearly. And I genuinely care about what Pomelo is building. I want to help more families find care that makes a real difference.',
+    stats: [{ n:'+31%', l:'Media spend efficiency' }, { n:'2 yrs', l:'TA at UT Dallas' }, { n:'$1.7B', l:'Pomelo valuation' }]
+  }
+};
+
+function openPanel(id) {
+  const d = panelData[id];
+  document.getElementById('panel-tag').textContent = d.tag;
+  document.getElementById('panel-title').textContent = d.title;
+  document.getElementById('panel-body').textContent = d.body;
+  document.getElementById('panel-stats').innerHTML = d.stats.map(s =>
+    '<div class="pstat"><div class="pstat-num">' + s.n + '</div><div class="pstat-lbl">' + s.l + '</div></div>'
+  ).join('');
+  document.getElementById('panel').classList.add('open');
+}
+
+function closePanel() { document.getElementById('panel').classList.remove('open'); }
+function closePanelBg(e) { if (e.target === document.getElementById('panel')) closePanel(); }
+
+function navTo(id, btn) {
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.querySelectorAll('.nav-pill').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function switchTab(btn, id) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(id).classList.add('active');
+}
+
+function animateCount(el, target, suffix) {
+  let cur = 0;
+  const step = target / 45;
+  const t = setInterval(function() {
+    cur = Math.min(cur + step, target);
+    el.textContent = Math.round(cur) + suffix;
+    if (cur >= target) clearInterval(t);
+  }, 28);
+}
+
+window.addEventListener('load', function() {
+  setTimeout(function() {
+    animateCount(document.getElementById('s43'), 43, '%');
+    animateCount(document.getElementById('s38'), 38, '%');
+    animateCount(document.getElementById('s22'), 22, '%');
+    animateCount(document.getElementById('s31'), 31, '%');
+  }, 350);
+
+  var plum = '#5A3070';
+  var peach = '#F4A97F';
+  var sage = '#7A9E7E';
+
+  new Chart(document.getElementById('barChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Traffic lift', 'Report accuracy', 'Conv. rate', 'Spend cut', 'Camp. eff.', 'CPA cut'],
+      datasets: [{
+        data: [43, 38, 22, 31, 22, 19],
+        backgroundColor: [plum, plum, peach, peach, sage, sage],
+        borderRadius: 6,
+        borderSkipped: false
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 55,
+          ticks: { callback: function(v) { return v + '%'; }, font: { size: 10 }, color: '#6B6466' },
+          grid: { color: '#EDE9E6' }
+        },
+        x: {
+          ticks: { font: { size: 9 }, color: '#6B6466', maxRotation: 28 },
+          grid: { display: false }
+        }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('radarChart'), {
+    type: 'radar',
+    data: {
+      labels: ['Paid Search', 'Paid Social', 'Analytics', 'Data QA', 'A/B Testing', 'Reporting'],
+      datasets: [{
+        label: 'Sarjil Shah',
+        data: [92, 85, 88, 90, 84, 88],
+        fill: true,
+        backgroundColor: 'rgba(90,48,112,0.12)',
+        borderColor: plum,
+        borderWidth: 2,
+        pointBackgroundColor: peach,
+        pointBorderColor: plum,
+        pointRadius: 4
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        r: {
+          min: 0,
+          max: 100,
+          ticks: { display: false },
+          grid: { color: '#EDE9E6' },
+          pointLabels: { font: { size: 10 }, color: '#6B6466' }
+        }
+      }
+    }
+  });
+});
+</script>
+</body>
+</html>
